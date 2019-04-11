@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flappy Bird</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+	<div style="width: 50vw; height: 50vh; margin: 0 auto; border: 2px solid black; position: relative" id="field">
+		<img src="http://www.iconarchive.com/download/i59182/femfoyou/angry-birds/angry-bird-yellow.ico" style="position: absolute; width: 50px; height: 50px" id="bird">
+	</div>
+	
+	
+	<script type="text/javascript">
+
+		window.onload = function() {
+			var height = field.clientHeight - bird.clientHeight;
+			var width = 300;
+			
+			
+
+			animate({
+				duration: 2000,
+				timing: makeEaseOut(bounce),
+				draw: function(progress) {
+					bird.style.top = height * progress + 'px'
+				}
+			});
+
+			animate({
+				duration: 2000,
+				timing: makeEaseOut(quad),
+				draw: function(progress) {
+					bird.style.left = width * progress + "px"
+				}
+			});
+		}
+		
+		window.onclick = function() {
+			var startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
+			var startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
+			
+			var height = field.clientHeight - bird.clientHeight;
+			var width = 300;
+			
+			animate({
+				duration: 1000,
+				timing: makeEaseOut1(jump),
+				draw: function(progress) {
+					let top = startTop + height * progress;
+					bird.style.top = (top > 435 ? 435 : top) + 'px'
+				}
+			});
+			
+			animate({
+				duration: 2000,
+				timing: makeEaseOut(quad),
+				draw: function(progress) {
+					let left = startLeft + width * progress;
+					bird.style.left = (left > 755 ? 755 : left) + "px";
+				}
+			});
+		}
+		
+		function jump(timeFraction) {
+			return  Math.pow(timeFraction * 1.3, 2) * (2.5 * timeFraction - 1.7)
+		}
+		
+		function makeEaseOut1(timing) {
+			return function(timeFraction) {
+				return timing(timeFraction);
+			}
+		}
+		
+		function makeEaseOut(timing) {
+			return function(timeFraction) {
+				return 1 - timing(1 - timeFraction);
+			}
+		}
+
+		function bounce(timeFraction) {
+			for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
+				if (timeFraction >= (7 - 4 * a) / 11) {
+					return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+				}
+			}
+		}
+		
+		function quad(timeFraction) {
+			return Math.pow(timeFraction, 1);
+		}
+		
+		function animate(options) {
+			var start = performance.now();
+
+			requestAnimationFrame(function animate(time) {
+				// timeFraction от 0 до 1
+				var timeFraction = (time - start) / options.duration;
+				if (timeFraction > 1) timeFraction = 1;
+
+				// текущее состояние анимации
+				var progress = options.timing(timeFraction)
+
+				options.draw(progress);
+
+				if (timeFraction < 1) {
+					requestAnimationFrame(animate);
+				}
+			});
+		}
+	</script>
+</body>
+</html>
