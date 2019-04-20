@@ -7,9 +7,35 @@ body {
 	background-color: #f1f1f1;
 }
 
+.field {
+    width: 805px;
+    height: 482px;
+    margin: 0 auto;
+    border: 2px solid black;
+    position: relative;
+    cursor: pointer;
+}
+
+.bird {
+    position: absolute;
+    width: 50px;
+    height: 50px
+}
+
+.button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: green;
+    color: white;
+}
+
 .unselectable {
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+p {
+    text-align: center;
 }

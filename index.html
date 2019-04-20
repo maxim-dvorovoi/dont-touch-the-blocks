@@ -4,26 +4,26 @@
 	<title>Flappy Bird</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="img/favicon.ico">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
-<body>
-	<div style="width: 805px; height: 482px; margin: 0 auto; border: 2px solid black; position: relative; cursor: pointer" id="field" class="unselectable">
-		<img src="http://www.iconarchive.com/download/i59182/femfoyou/angry-birds/angry-bird-yellow.ico" style="position: absolute; width: 50px; height: 50px" id="bird">
+<body class="unselectable">
+	<div class="field" id="field" class="unselectable">
+		<img class="bird" src="./img/bird.png" id="bird">
 	</div>
 	
-	<p style="text-align: center;" class="unselectable">
-		<span style="padding: 5px 10px; background-color: green; color: white" id="start">start</span>
+	<p>
+		<span class="button" id="start" >START</span>
 	</p>
-	
-	
+
 	<script type="text/javascript">
+		let reverse = false;
+		let clickCount = 0;
 
 		start.onclick = function() {
-			var height = field.clientHeight - bird.clientHeight;
-			var width = 300;
+			let height = field.clientHeight - bird.clientHeight;
+			let width = 300;
 
 			animate({
 				duration: 2000,
@@ -43,15 +43,16 @@
 		}
 		
 		field.onclick = function() {
-			var startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
-			var startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
-			
-			var height = field.clientHeight - bird.clientHeight;
-			var width = 300;
+			let startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
+			let startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
+
+			let height = field.clientHeight - bird.clientHeight;
+			let width = 300;
+			let currentClick = ++clickCount;
 			
 			animate({
 				duration: 1000,
-				timing: makeEaseOut1(jump),
+				timing: makeInOut(jump),
 				draw: function(progress) {
 					let top = startTop + height * progress;
 					bird.style.top = (top > 435 ? 435 : (top < 0 ? 0 : top)) + 'px'
@@ -62,8 +63,19 @@
 				duration: 2000,
 				timing: makeEaseOut(quad),
 				draw: function(progress) {
-					let left = startLeft + width * progress;
-					bird.style.left = (left > 755 ? 755 : left) + "px";
+					if (currentClick !== clickCount) return;
+					if (progress < 0) progress = 0;
+
+					let left = startLeft + width * progress * (reverse === true ? -1 : 1);
+
+					if (left > 755 || left < 0) {
+						reverse = !reverse;
+						left = left > 755 ? 755 : (left < 0 ? 0 : left);
+						startLeft = left + (left - startLeft);
+					}
+
+					bird.style.transform = 'scale(' + (reverse ? -1 : 1) + ', 1)';
+					bird.style.left = left + "px";
 				}
 			});
 		}
@@ -72,7 +84,7 @@
 			return  Math.pow(timeFraction*1.15, 2) * (2.2 * (timeFraction + 0.1) - 1.7)
 		}
 		
-		function makeEaseOut1(timing) {
+		function makeInOut(timing) {
 			return function(timeFraction) {
 				return timing(timeFraction);
 			}
@@ -85,7 +97,7 @@
 		}
 
 		function bounce(timeFraction) {
-			for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
+			for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
 				if (timeFraction >= (7 - 4 * a) / 11) {
 					return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
 				}
@@ -97,21 +109,16 @@
 		}
 		
 		function animate(options) {
-			var start = performance.now();
+			let start = performance.now();
 
 			requestAnimationFrame(function animate(time) {
-				// timeFraction от 0 до 1
-				var timeFraction = (time - start) / options.duration;
+				let timeFraction = (time - start) / options.duration;
 				if (timeFraction > 1) timeFraction = 1;
 
-				// текущее состояние анимации
-				var progress = options.timing(timeFraction)
-
+				let progress = options.timing(timeFraction);
 				options.draw(progress);
 
-				if (timeFraction < 1) {
-					requestAnimationFrame(animate);
-				}
+				if (timeFraction < 1) requestAnimationFrame(animate);
 			});
 		}
 	</script>
