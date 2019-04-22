@@ -12,6 +12,50 @@
 	<div class="field">
 		<div class="field" id="field" class="unselectable">
 			<img class="bird" src="./img/bird.png" id="bird">
+
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+			<div class="triangle-down"></div>
+
+			<div class="margin462"></div>
+
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
+			<div class="triangle-up"></div>
 		</div>
 		<div class="popup" id="popup">
 			<div class="button" id="start">START</div>
@@ -23,17 +67,18 @@
 	<h3><span class="score" id="score"></span></h3>
 
 	<script type="text/javascript">
-		let reverse = false;
 		let popupEnable = false;
+		let reverse = false;
 		let end = false;
 		let clickCount = 0;
+		let bestScore = 0;
 		let score = 0;
 		let width = 350;
 		showHidePopup();
 
 		start.onclick = function(event) {
 			score = 0;
-			end = true;
+			clickCount = 0;
 			reverse = false;
 			let height = field.clientHeight - bird.clientHeight;
 			bird.style.transform = 'scale(1, 1)';
@@ -44,8 +89,10 @@
 				duration: 2000,
 				timing: makeEaseOut(bounce),
 				draw: function(progress) {
+					if (clickCount > 0) return;
+
 					let top = height * progress;
-					if ((top >= 435 || top <= 0) && !popupEnable) showHidePopup();
+					if ((top >= 420) && !popupEnable) showHidePopup();
 
 					bird.style.top = top + 'px';
 				}
@@ -55,6 +102,8 @@
 				duration: 2000,
 				timing: makeEaseOut(quad),
 				draw: function(progress) {
+					if (clickCount > 0) return;
+
 					bird.style.left = width * progress + "px";
 				}
 			});
@@ -66,7 +115,6 @@
 			end = false;
 			let startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
 			let startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
-
 			let height = field.clientHeight - bird.clientHeight;
 			let currentClick = ++clickCount;
 
@@ -77,9 +125,9 @@
 					if (end || currentClick !== clickCount) return;
 					let top = startTop + height * progress;
 
-					if ((top >= 435 || top <= 0) && !popupEnable) showHidePopup();
+					if ((top >= 420 || top <= 10) && !popupEnable) showHidePopup();
 
-					bird.style.top = (top > 435 ? 435 : (top < 0 ? 0 : top)) + 'px';
+					bird.style.top = (top > 420 ? 420 : (top < 10 ? 10 : top)) + 'px';
 				}
 			});
 
@@ -110,17 +158,21 @@
 			if (clickCount > 0) document.getElementById('start').innerHTML = 'RESTART';
 
 			setScore();
+			end = true;
 			popupEnable = !popupEnable;
 			popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
 			popup.style.zIndex = (popup.style.zIndex == 1 ? -1 : 1);
 		}
 
 		function setScore() {
+			if (score > bestScore) bestScore = score;
+
 			document.getElementById('score').innerHTML = 'SCORE: ' + score;
+			document.getElementById('bestScore').innerHTML = 'BEST SCORE: ' + bestScore;
 		}
 		
 		function jump(timeFraction) {
-			return  Math.pow(timeFraction*1.2, 2) * (2.2 * (timeFraction + 0.1) - 1.7)
+			return  Math.pow(timeFraction*1.2, 2) * (2.2 * (timeFraction + 0.1) - 1.8)
 		}
 		
 		function makeInOut(timing) {
