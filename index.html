@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
 </head>
 <body class="unselectable">
 	<div class="field">
@@ -15,12 +15,12 @@
 		</div>
 		<div class="popup" id="popup">
 			<p>
-				<span class="button" id="start" >START</span>
+				<span class="button" id="start">START</span>
 			</p>
 		</div>
 	</div>
 
-	<p><span id="score"></span></p>
+	<h3><span class="score" id="score"></span></h3>
 
 	<script type="text/javascript">
 		let reverse = false;
@@ -74,7 +74,7 @@
 					if (end || currentClick !== clickCount) return;
 					let top = startTop + height * progress;
 
-					if (top > 435 || top < 0) showHidePopup();
+					if ((top >= 435 || top <= 0) && !popupEnable) showHidePopup();
 
 					bird.style.top = (top > 435 ? 435 : (top < 0 ? 0 : top)) + 'px';
 				}
@@ -104,11 +104,13 @@
 		};
 
 		function showHidePopup() {
+			if (clickCount > 0) document.getElementById('start').innerHTML = 'RESTART';
+
 			setScore();
 			popupEnable = !popupEnable;
-			popup.style.opacity = (popup.style.opacity == '1' ? '0' : '1');
-			popup.style.zIndex = (popup.style.zIndex == '1' ? '-1' : '1');
-			field.style.opacity = (popup.style.opacity == '1' ? '0.5' : '1');
+			popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
+			popup.style.zIndex = (popup.style.zIndex == 1 ? -1 : 1);
+			field.style.opacity = (popup.style.opacity == 1 ? 0.5 : 1);
 		}
 
 		function setScore() {
