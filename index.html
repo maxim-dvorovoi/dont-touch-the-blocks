@@ -14,9 +14,9 @@
 			<img class="bird" src="./img/bird.png" id="bird">
 		</div>
 		<div class="popup" id="popup">
-			<p>
-				<span class="button" id="start">START</span>
-			</p>
+			<div class="button" id="start">START</div>
+			<br>
+			<div class="button" id="bestScore">BEST SCORE: 0</div>
 		</div>
 	</div>
 
@@ -44,7 +44,10 @@
 				duration: 2000,
 				timing: makeEaseOut(bounce),
 				draw: function(progress) {
-					bird.style.top = height * progress + 'px';
+					let top = height * progress;
+					if ((top >= 435 || top <= 0) && !popupEnable) showHidePopup();
+
+					bird.style.top = top + 'px';
 				}
 			});
 
@@ -110,7 +113,6 @@
 			popupEnable = !popupEnable;
 			popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
 			popup.style.zIndex = (popup.style.zIndex == 1 ? -1 : 1);
-			field.style.opacity = (popup.style.opacity == 1 ? 0.5 : 1);
 		}
 
 		function setScore() {
