@@ -69,7 +69,6 @@
 	<script type="text/javascript">
 		let popupEnable = false;
 		let reverse = false;
-		let end = false;
 		let clickCount = 0;
 		let bestScore = 0;
 		let score = 0;
@@ -78,10 +77,10 @@
 
 		start.onclick = function(event) {
 			score = 0;
-			clickCount = 0;
 			reverse = false;
 			let height = field.clientHeight - bird.clientHeight;
 			bird.style.transform = 'scale(1, 1)';
+			let currentClick = ++clickCount;
 			setScore();
 			showHidePopup();
 
@@ -89,10 +88,10 @@
 				duration: 2000,
 				timing: makeEaseOut(bounce),
 				draw: function(progress) {
-					if (clickCount > 0) return;
+					if (popupEnable || currentClick !== clickCount) return;
 
 					let top = height * progress;
-					if ((top >= 420) && !popupEnable) showHidePopup();
+					if (top >= 420) showHidePopup();
 
 					bird.style.top = top + 'px';
 				}
@@ -102,7 +101,7 @@
 				duration: 2000,
 				timing: makeEaseOut(quad),
 				draw: function(progress) {
-					if (clickCount > 0) return;
+					if (popupEnable || currentClick !== clickCount) return;
 
 					bird.style.left = width * progress + "px";
 				}
@@ -112,7 +111,6 @@
 		field.onclick = function(event) {
 			if (popupEnable) return;
 
-			end = false;
 			let startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
 			let startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
 			let height = field.clientHeight - bird.clientHeight;
@@ -122,7 +120,7 @@
 				duration: 1000,
 				timing: makeInOut(jump),
 				draw: function(progress) {
-					if (end || currentClick !== clickCount) return;
+					if (popupEnable || currentClick !== clickCount) return;
 					let top = startTop + height * progress;
 
 					if ((top >= 420 || top <= 10) && !popupEnable) showHidePopup();
@@ -135,7 +133,7 @@
 				duration: 2000,
 				timing: makeEaseOut(quad),
 				draw: function(progress) {
-					if (end || currentClick !== clickCount) return;
+					if (popupEnable || currentClick !== clickCount) return;
 					if (progress < 0) progress = 0;
 
 					let left = startLeft + width * progress * (reverse === true ? -1 : 1);
@@ -158,7 +156,6 @@
 			if (clickCount > 0) document.getElementById('start').innerHTML = 'RESTART';
 
 			setScore();
-			end = true;
 			popupEnable = !popupEnable;
 			popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
 			popup.style.zIndex = (popup.style.zIndex == 1 ? -1 : 1);
