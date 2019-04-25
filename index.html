@@ -8,74 +8,118 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
 </head>
-<body class="unselectable">
-	<div class="field">
-		<div class="field" id="field" class="unselectable">
-			<img class="bird" src="./img/bird.png" id="bird">
-
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-			<div class="triangle-down"></div>
-
-			<div class="margin462"></div>
-
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-			<div class="triangle-up"></div>
-		</div>
-		<div class="popup" id="popup">
-			<div class="button" id="start">START</div>
-			<br>
-			<div class="button" id="bestScore">BEST SCORE: 0</div>
+<body class="unselectable" onload="setTimeout(showPage, 1000)">
+	<div id="loader" class="loader">
+		<div class="center">
+			<div class="dot-1"></div>
+			<div class="dot-2"></div>
+			<div class="dot-3"></div>
 		</div>
 	</div>
 
-	<h3><span class="score" id="score"></span></h3>
+	<div style="display:none" id="index"  class="animate-bottom">
+		<div class="field">
+			<div class="field" id="field" class="unselectable">
+				<img class="bird" src="./img/bird.png" id="bird">
+
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+				<div class="triangle-down"></div>
+
+				<div class="margin462"></div>
+
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+				<div class="triangle-up"></div>
+			</div>
+
+			<div class="block" id="block11" style="left: 150px; top: -300px"></div>
+			<div class="block" id="block12" style="left: 150px;"></div>
+			<div class="block" id="block21" style="left: 350px; top: -300px"></div>
+			<div class="block" id="block22" style="left: 350px;"></div>
+			<div class="block" id="block31" style="left: 650px; top: -300px"></div>
+			<div class="block" id="block32" style="left: 650px;"></div>
+
+			<div class="popup" id="popup">
+				<div class="button" id="start">START</div>
+				<br>
+				<div class="button" id="bestScore">BEST SCORE: 0</div>
+			</div>
+		</div>
+
+		<div class="score" id="score"></div>
+	</div>
 
 	<script type="text/javascript">
 		let popupEnable = false;
 		let reverse = false;
+		let keyPress = false;
 		let clickCount = 0;
 		let bestScore = 0;
 		let score = 0;
 		let width = 350;
+		let minAreaBetweenBlock = 100;
+		let maxHeightBlock = 300;
+		let stage = [0, 1, 3, 5, 10, 15, 20];
 		showHidePopup();
 
-		start.onclick = function(event) {
+		start.onclick = function(event) { startClick(event) };
+		field.onclick = function(event) { clickFly(event) };
+
+		start.ontouchstart = function(event) { startClick(event) };
+		field.ontouchstart = function(event) { clickFly(event) };
+
+		document.addEventListener('keydown', keyDown);
+		document.addEventListener('keyup', function() { keyPress = false });
+
+		function keyDown(event) {
+			if (keyPress) return;
+			if (event.keyCode === 32) {
+				keyPress = true;
+				return popupEnable ? startClick(event) : clickFly(event);
+			}
+		}
+
+		function showPage() {
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("index").style.display = "block";
+		}
+
+		function startClick(event) {
 			score = 0;
 			reverse = false;
 			let height = field.clientHeight - bird.clientHeight;
@@ -106,9 +150,9 @@
 					bird.style.left = width * progress + "px";
 				}
 			});
-		};
+		}
 
-		field.onclick = function(event) {
+		function clickFly(event) {
 			if (popupEnable) return;
 
 			let startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
@@ -150,7 +194,7 @@
 					bird.style.left = left + "px";
 				}
 			});
-		};
+		}
 
 		function showHidePopup() {
 			if (clickCount > 0) document.getElementById('start').innerHTML = 'RESTART';
@@ -158,7 +202,7 @@
 			setScore();
 			popupEnable = !popupEnable;
 			popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
-			popup.style.zIndex = (popup.style.zIndex == 1 ? -1 : 1);
+			popup.style.zIndex = (popup.style.zIndex == 1000 ? -1 : 1000);
 		}
 
 		function setScore() {
