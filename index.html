@@ -92,7 +92,7 @@
 		let bestScore = 0;
 		let score = 0;
 		let width = 350;
-		let minAreaBetweenBlock = 100;
+		let minAreaBetweenBlocks = 500;
 		let maxHeightBlock = 300;
 		let stage = [0, 1, 3, 5, 10, 15, 20];
 		showHidePopup();
@@ -219,7 +219,7 @@
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block11.style.top = '-300px';
 				block12.style.top = '500px';
-				block21.style.top = (styleTop - 500) + 'px';
+				block21.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block22.style.top = styleTop + 'px';
 				block31.style.top = '-300px';
 				block32.style.top = '500px';
@@ -228,15 +228,26 @@
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block21.style.top = '-300px';
 				block22.style.top = '500px';
-				block31.style.top = (styleTop - 500) + 'px';
+				block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block32.style.top = styleTop + 'px';
 			}
-			if (score >= 3 && score <5) {
+			if (score >= 3 && score <6) {
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
-				block11.style.top = (styleTop - 500) + 'px';
+				block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block12.style.top = styleTop + 'px';
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
-				block31.style.top = (styleTop - 500) + 'px';
+				block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
+				block32.style.top = styleTop + 'px';
+			}
+			if (score >= 6) {
+				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
+				block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
+				block12.style.top = styleTop + 'px';
+				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
+				block21.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
+				block22.style.top = styleTop + 'px';
+				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
+				block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block32.style.top = styleTop + 'px';
 			}
 		}
