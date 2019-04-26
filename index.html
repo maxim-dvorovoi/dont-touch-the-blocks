@@ -67,12 +67,12 @@
 				<div class="triangle-up"></div>
 			</div>
 
-			<div class="block" id="block11" style="left: 100px; top: -300px"></div>
-			<div class="block" id="block12" style="left: 100px;"></div>
-			<div class="block" id="block21" style="left: 350px; top: -300px"></div>
-			<div class="block" id="block22" style="left: 350px;"></div>
-			<div class="block" id="block31" style="left: 600px; top: -300px"></div>
-			<div class="block" id="block32" style="left: 600px;"></div>
+			<div class="block" id="block11" style="left: 185px; top: -300px"></div>
+			<div class="block" id="block12" style="left: 185px;"></div>
+			<div class="block" id="block21" style="left: 365px; top: -300px"></div>
+			<div class="block" id="block22" style="left: 365px;"></div>
+			<div class="block" id="block31" style="left: 545px; top: -300px"></div>
+			<div class="block" id="block32" style="left: 545px;"></div>
 
 			<div class="popup" id="popup">
 				<div class="button" id="start">START</div>
@@ -189,6 +189,7 @@
 						++score;
 						setScore();
 					}
+					//console.log(block22.style.top.substr(0, 3));
 
 					bird.style.transform = 'scale(' + (reverse ? -1 : 1) + ', 1)';
 					bird.style.left = left + "px";
@@ -213,30 +214,30 @@
 		}
 		
 		function setStage() {
-			let top = 0;
+			let styleTop = 0;
 			if (score >= 0 && score <2) {
-				top = Math.floor(Math.random() * (400 - 200)) + 200;
+				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block11.style.top = '-300px';
 				block12.style.top = '500px';
-				block21.style.top = (top - 500) + 'px';
-				block22.style.top = top + 'px';
+				block21.style.top = (styleTop - 500) + 'px';
+				block22.style.top = styleTop + 'px';
 				block31.style.top = '-300px';
 				block32.style.top = '500px';
 			}
 			if (score >= 2 && score <3) {
-				top = Math.floor(Math.random() * (400 - 200)) + 200;
+				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block21.style.top = '-300px';
 				block22.style.top = '500px';
-				block31.style.top = (top - 500) + 'px';
-				block32.style.top = top + 'px';
+				block31.style.top = (styleTop - 500) + 'px';
+				block32.style.top = styleTop + 'px';
 			}
 			if (score >= 3 && score <5) {
-				top = Math.floor(Math.random() * (400 - 200)) + 200;
-				block11.style.top = (top - 500) + 'px';
-				block12.style.top = top + 'px';
-				top = Math.floor(Math.random() * (400 - 200)) + 200;
-				block31.style.top = (top - 500) + 'px';
-				block32.style.top = top + 'px';
+				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
+				block11.style.top = (styleTop - 500) + 'px';
+				block12.style.top = styleTop + 'px';
+				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
+				block31.style.top = (styleTop - 500) + 'px';
+				block32.style.top = styleTop + 'px';
 			}
 		}
 		

@@ -26,7 +26,7 @@ body {
 
 .block {
 	position: absolute;
-	width: 100px;
+	width: 70px;
 	height: 300px;
 	background-color: #7b7b7b;
 	transition: .2s;
