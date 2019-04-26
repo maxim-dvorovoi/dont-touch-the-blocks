@@ -5,6 +5,7 @@
 body {
 	margin: 0;
 	background-color: #7b7b7b;
+	overflow: hidden;
 }
 
 .field {
@@ -14,7 +15,6 @@ body {
     position: relative;
     cursor: pointer;
     background-color: #eaeaea;
-    margin-top: 40px;
 }
 
 .bird {
@@ -87,6 +87,10 @@ body {
 .margin462 {
 	height: 462px;
 	width: 100%;
+}
+
+.mtop-40 {
+	margin-top: 40px;
 }
 
 .unselectable {

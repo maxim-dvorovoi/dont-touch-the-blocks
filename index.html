@@ -18,7 +18,7 @@
 	</div>
 
 	<div style="display:none" id="index"  class="animate-bottom">
-		<div class="field">
+		<div class="field mtop-40">
 			<div class="field" id="field" class="unselectable">
 				<img class="bird" src="./img/bird.png" id="bird">
 
@@ -81,7 +81,7 @@
 			</div>
 		</div>
 
-		<div class="score" id="score"></div>
+		<div class="score" id="score">SCORE: 0</div>
 	</div>
 
 	<script type="text/javascript">
@@ -199,7 +199,6 @@
 		function showHidePopup() {
 			if (clickCount > 0) document.getElementById('start').innerHTML = 'RESTART';
 
-			setScore();
 			popupEnable = !popupEnable;
 			popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
 			popup.style.zIndex = (popup.style.zIndex == 1000 ? -1 : 1000);
@@ -210,6 +209,35 @@
 
 			document.getElementById('score').innerHTML = 'SCORE: ' + score;
 			document.getElementById('bestScore').innerHTML = 'BEST SCORE: ' + bestScore;
+			setStage();
+		}
+		
+		function setStage() {
+			let top = 0;
+			if (score >= 0 && score <2) {
+				top = Math.floor(Math.random() * (400 - 200)) + 200;
+				block11.style.top = '-300px';
+				block12.style.top = '500px';
+				block21.style.top = (top - 500) + 'px';
+				block22.style.top = top + 'px';
+				block31.style.top = '-300px';
+				block32.style.top = '500px';
+			}
+			if (score >= 2 && score <3) {
+				top = Math.floor(Math.random() * (400 - 200)) + 200;
+				block21.style.top = '-300px';
+				block22.style.top = '500px';
+				block31.style.top = (top - 500) + 'px';
+				block32.style.top = top + 'px';
+			}
+			if (score >= 3 && score <5) {
+				top = Math.floor(Math.random() * (400 - 200)) + 200;
+				block11.style.top = (top - 500) + 'px';
+				block12.style.top = top + 'px';
+				top = Math.floor(Math.random() * (400 - 200)) + 200;
+				block31.style.top = (top - 500) + 'px';
+				block32.style.top = top + 'px';
+			}
 		}
 		
 		function jump(timeFraction) {
