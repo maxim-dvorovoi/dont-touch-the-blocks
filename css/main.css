@@ -32,6 +32,7 @@ body {
 	height: 480px;
 	margin: auto;
 	transform-origin: left top;
+	transition: .3s;
 }
 
 .triangles {
