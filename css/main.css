@@ -13,6 +13,10 @@ body {
 	transition: 0.2s;
 }
 
+p {
+	text-align: center;
+}
+
 .alert-rotate {
 	position: absolute;
 	background-color: #e23658d9;
@@ -27,17 +31,25 @@ body {
 	transition: .2s;
 }
 
+.popup {
+	position: absolute;
+	opacity: 0;
+	z-index: -1;
+	width: 150px;
+	height: 150px;
+	left: calc(50% - 75px);
+	top: calc(50% - 75px);
+	transition: .3s;
+	text-align: center;
+	font-size: 16px;
+}
+
 .zoom {
 	width: 860px;
 	height: 480px;
 	margin: auto;
 	transform-origin: left top;
 	transition: .3s;
-}
-
-.triangles {
-	width: 840px;
-	margin: 0 auto;
 }
 
 .field {
@@ -55,7 +67,6 @@ body {
     width: 60px;
     height: 40px;
 	z-index: 100;
-	background-image: url(../img/bird.png);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -69,38 +80,9 @@ body {
 	transition: .2s;
 }
 
-.popup {
-    position: absolute;
-    opacity: 0;
-    z-index: -1;
-    width: 150px;
-    height: 150px;
-    left: calc(50% - 75px);
-    top: calc(50% - 75px);
-    transition: .3s;
-    text-align: center;
-    font-size: 16px;
-}
-
-.button {
-    cursor: pointer;
-    padding: 5px 10px;
-    background-color: #e23658;
-    color: white;
-    border-radius: 5px;
-}
-
-.score {
-	position: absolute;
-	margin-top: 30px;
-	left: calc(50% - 50px);
-	font-size: 20px;
-	text-align: center;
-    color: white;
-    letter-spacing: 1px;
-	z-index: 100;
-	width: 100px;
-
+.triangles {
+	width: 840px;
+	margin: 0 auto;
 }
 
 .triangle-down {
@@ -125,13 +107,25 @@ body {
 	margin-top: 1px;
 }
 
-.margin462 {
-	height: 460px;
-	width: 100%;
+.button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #e23658;
+    color: white;
+    border-radius: 5px;
 }
 
-.mtop-40 {
-	margin-top: 40px;
+.score {
+	position: absolute;
+	margin-top: 30px;
+	left: calc(50% - 50px);
+	font-size: 20px;
+	text-align: center;
+    color: white;
+    letter-spacing: 1px;
+	z-index: 100;
+	width: 100px;
+
 }
 
 .unselectable {
@@ -142,10 +136,6 @@ body {
 	-webkit-touch-callout: none;
 	-ms-user-select: none;
 	outline: none;
-}
-
-p {
-    text-align: center;
 }
 
 .animate-bottom {
@@ -218,6 +208,15 @@ p {
 	animation-fill-mode: both;
 	-webkit-animation: jump-jump-3 1s cubic-bezier(0.21, 0.98, 0.6, 0.99) infinite alternate;
 	animation: jump-jump-3 1s cubic-bezier(0.21, 0.98, 0.6, 0.99) infinite alternate;
+}
+
+.margin462 {
+	height: 460px;
+	width: 100%;
+}
+
+.mtop-40 {
+	margin-top: 40px;
 }
 
 @-webkit-keyframes jump-jump-1 {

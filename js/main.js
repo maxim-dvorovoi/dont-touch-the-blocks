@@ -7,6 +7,7 @@ let width = 350;
 let minAreaBetweenBlocks = 500;
 let bestScore = 0;
 let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+bird.style.backgroundImage = "url('./img/bird.png')";
 
 if (getCookie('flappyBestScore')) {
 	let cookie = getCookie('flappyBestScore').split(',')[0];
@@ -15,9 +16,9 @@ if (getCookie('flappyBestScore')) {
 }
 
 showHidePopup();
-start.onclick = function(event) { startClick(event) };
-flyClickable.onclick = function(event) { clickFly(event) };
 
+start.onclick = startClick;
+flyClickable.onclick = clickFly;
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
 if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
@@ -25,21 +26,25 @@ if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false
 isLandscape();
 window.onresize = isLandscape;
 
-function preventDefault(e){
-	e.preventDefault();
+function showPage() {
+	loader.style.display = "none";
+	index.style.opacity = "1";
 }
 
-function showPage() {
-	document.getElementById("loader").style.display = "none";
-	document.getElementById("index").style.opacity = "1";
+function showHidePopup() {
+	if (clickCount > 0) document.getElementById('start').innerHTML = 'RESTART';
+
+	popupEnable = !popupEnable;
+	popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
+	popup.style.zIndex = (popup.style.zIndex == 1000 ? -1 : 1000);
 }
 
 function isLandscape() {
 	let orientation = screen.msOrientation || screen.mozOrientation || (screen.orientation || {}).type;
 
-	if (orientation == 'landscape-primary'
-		|| orientation == 'landscape-secondary'
-		|| Math.abs(window.orientation) == 90
+	if (orientation === 'landscape-primary'
+		|| orientation === 'landscape-secondary'
+		|| Math.abs(window.orientation) === 90
 	) {
 		rotate.style.display = 'none';
 	} else {
@@ -66,20 +71,12 @@ function isLandscape() {
 	}
 }
 
-function keyDown(event) {
-	if (keyPress) return;
-	if (event.keyCode === 32) {
-		keyPress = true;
-		return popupEnable ? startClick(event) : clickFly(event);
-	}
-}
-
 function startClick(event) {
 	score = 0;
 	reverse = false;
-	let height = field.clientHeight - bird.clientHeight;
 	bird.style.transform = 'scale(1, 1)';
 	let currentClick = ++clickCount;
+	let height = field.clientHeight - bird.clientHeight;
 	setScore();
 	showHidePopup();
 
@@ -170,12 +167,46 @@ function clickFly(event) {
 	});
 }
 
-function showHidePopup() {
-	if (clickCount > 0) document.getElementById('start').innerHTML = 'RESTART';
+function jump(timeFraction) {
+	return  Math.pow(timeFraction*1.2, 2) * (2.2 * (timeFraction + 0.1) - 1.8)
+}
 
-	popupEnable = !popupEnable;
-	popup.style.opacity = (popup.style.opacity == 1 ? 0 : 1);
-	popup.style.zIndex = (popup.style.zIndex == 1000 ? -1 : 1000);
+function makeInOut(timing) {
+	return function(timeFraction) {
+		return timing(timeFraction);
+	}
+}
+
+function makeEaseOut(timing) {
+	return function(timeFraction) {
+		return 1 - timing(1 - timeFraction);
+	}
+}
+
+function bounce(timeFraction) {
+	for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
+		if (timeFraction >= (7 - 4 * a) / 11) {
+			return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+		}
+	}
+}
+
+function quad(timeFraction) {
+	return timeFraction;
+}
+
+function animate(options) {
+	let start = performance.now();
+
+	requestAnimationFrame(function animate(time) {
+		let timeFraction = (time - start) / options.duration;
+		if (timeFraction > 1) timeFraction = 1;
+
+		let progress = options.timing(timeFraction);
+		options.draw(progress);
+
+		if (timeFraction < 1) requestAnimationFrame(animate);
+	});
 }
 
 function setScore() {
@@ -256,49 +287,7 @@ function changeColor(primary, secondary) {
 	}
 }
 
-function jump(timeFraction) {
-	return  Math.pow(timeFraction*1.2, 2) * (2.2 * (timeFraction + 0.1) - 1.8)
-}
-
-function makeInOut(timing) {
-	return function(timeFraction) {
-		return timing(timeFraction);
-	}
-}
-
-function makeEaseOut(timing) {
-	return function(timeFraction) {
-		return 1 - timing(1 - timeFraction);
-	}
-}
-
-function bounce(timeFraction) {
-	for (let a = 0, b = 1, result; 1; a += b, b /= 2) {
-		if (timeFraction >= (7 - 4 * a) / 11) {
-			return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
-		}
-	}
-}
-
-function quad(timeFraction) {
-	return timeFraction;
-}
-
-function animate(options) {
-	let start = performance.now();
-
-	requestAnimationFrame(function animate(time) {
-		let timeFraction = (time - start) / options.duration;
-		if (timeFraction > 1) timeFraction = 1;
-
-		let progress = options.timing(timeFraction);
-		options.draw(progress);
-
-		if (timeFraction < 1) requestAnimationFrame(animate);
-	});
-}
-
-function setCookie(name,value,days) {
+function setCookie(name, value, days) {
 	let expires = "";
 	if (days) {
 		let date = new Date();
@@ -323,21 +312,14 @@ function deleteCookie(name) {
 	document.cookie = name+'=, Max-Age=-99999999';
 }
 
-function removeMobileOnclick() {
-	if (isMobile()) {
-		start.onclick  = '';
-		field.onclick  = '';
+function keyDown(event) {
+	if (keyPress) return;
+	if (event.keyCode === 32) {
+		keyPress = true;
+		return popupEnable ? startClick(event) : clickFly(event);
 	}
 }
 
-function isMobile() {
-	if (navigator.userAgent.match(/Android/i)
-		|| navigator.userAgent.match(/iPhone/i)
-		|| navigator.userAgent.match(/iPad/i)
-		|| navigator.userAgent.match(/iPod/i)
-		|| navigator.userAgent.match(/BlackBerry/i)
-		|| navigator.userAgent.match(/Windows Phone/i)
-		|| navigator.userAgent.match(/Opera Mini/i)
-		|| navigator.userAgent.match(/IEMobile/i)
-	) return true;
+function preventDefault(e){
+	e.preventDefault();
 }
