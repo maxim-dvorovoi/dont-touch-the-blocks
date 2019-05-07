@@ -18,70 +18,76 @@
 	</div>
 
 	<div style="display:none" id="index"  class="animate-bottom">
-		<div class="field mtop-40">
-			<div class="field" id="field" class="unselectable">
-				<img class="bird" src="./img/bird.png" id="bird">
-
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-				<div class="triangle-down"></div>
-
-				<div class="margin462"></div>
-
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-				<div class="triangle-up"></div>
-			</div>
-
-			<div class="block" id="block11" style="left: 185px; top: -300px"></div>
-			<div class="block" id="block12" style="left: 185px;"></div>
-			<div class="block" id="block21" style="left: 365px; top: -300px"></div>
-			<div class="block" id="block22" style="left: 365px;"></div>
-			<div class="block" id="block31" style="left: 545px; top: -300px"></div>
-			<div class="block" id="block32" style="left: 545px;"></div>
-
-			<div class="popup" id="popup">
-				<div class="button" id="start">START</div>
-				<br>
-				<div class="button" id="bestScore">BEST SCORE: 0</div>
-			</div>
+		<div class="alert-rotate" id="rotate" style="display:none">
+			PLEASE ROTATE YOUR DEVICE TO PLAY
 		</div>
 
-		<div class="score" id="score">SCORE: 0</div>
+		<div class="zoom">
+			<div class="field mtop-40">
+				<div class="field unselectable" id="field" class="unselectable">
+					<div class="bird" id="bird"></div>
+
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+
+					<div class="margin462"></div>
+
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+				</div>
+
+				<div class="block" id="block11" style="left: 185px; top: -300px"></div>
+				<div class="block" id="block12" style="left: 185px;"></div>
+				<div class="block" id="block21" style="left: 365px; top: -300px"></div>
+				<div class="block" id="block22" style="left: 365px;"></div>
+				<div class="block" id="block31" style="left: 545px; top: -300px"></div>
+				<div class="block" id="block32" style="left: 545px;"></div>
+
+				<div class="popup" id="popup">
+					<div class="button" id="start">START</div>
+					<br>
+					<div class="button" id="bestScore">BEST SCORE: 0</div>
+				</div>
+			</div>
+
+			<div class="score" id="score">SCORE: 0</div>
+		</div>
 	</div>
 
 	<script type="text/javascript">
@@ -89,22 +95,33 @@
 		let reverse = false;
 		let keyPress = false;
 		let clickCount = 0;
-		let bestScore = 0;
 		let score = 0;
 		let width = 350;
 		let minAreaBetweenBlocks = 500;
-		let maxHeightBlock = 300;
-		let stage = [0, 1, 3, 5, 10, 15, 20];
+		let bestScore = 0;
+
+		if (getCookie('flappyBestScore')) {
+			let cookie = getCookie('flappyBestScore').split(',')[0];
+			bestScore = cookie ? parseInt(cookie) : 0;
+			document.getElementById('bestScore').innerHTML = 'BEST SCORE: ' + bestScore;
+		}
+
 		showHidePopup();
+		//window.addEventListener('load', removeMobileOnclick);
 
 		start.onclick = function(event) { startClick(event) };
 		field.onclick = function(event) { clickFly(event) };
 
-		start.ontouchstart = function(event) { startClick(event) };
-		field.ontouchstart = function(event) { clickFly(event) };
-
+		//start.ontouchstart = function(event) { startClick(event); };
+		//field.ontouchstart = function(event) { clickFly(event) };
+		document.addEventListener("touchstart", function(){}, true);
 		document.addEventListener('keydown', keyDown);
 		document.addEventListener('keyup', function() { keyPress = false });
+
+		rotate.style.display = (window.screen.orientation.type != 'landscape-primary' ? 'block' : 'none');
+		window.onresize = function() {
+			rotate.style.display = (window.screen.orientation.type != 'landscape-primary' ? 'block' : 'none');
+		};
 
 		function keyDown(event) {
 			if (keyPress) return;
@@ -135,7 +152,7 @@
 					if (popupEnable || currentClick !== clickCount) return;
 
 					let top = height * progress;
-					if (top >= 420) showHidePopup();
+					if (top >= 425) showHidePopup();
 
 					bird.style.top = top + 'px';
 				}
@@ -155,6 +172,15 @@
 		function clickFly(event) {
 			if (popupEnable) return;
 
+			bird.style.backgroundImage = "url('./img/birdFly.png')";
+			setTimeout(function() {
+				bird.style.backgroundImage = "url('./img/bird.png')";
+			}, 200);
+
+			let spikesHeight = document.getElementsByClassName('triangle-up')[0].offsetHeight - 5;
+			let maxFieldWidth = field.offsetWidth - bird.offsetWidth;
+			let maxFieldHeight = field.offsetHeight - bird.offsetHeight - spikesHeight;
+
 			let startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
 			let startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
 			let height = field.clientHeight - bird.clientHeight;
@@ -167,9 +193,9 @@
 					if (popupEnable || currentClick !== clickCount) return;
 					let top = startTop + height * progress;
 
-					if ((top >= 420 || top <= 10) && !popupEnable) showHidePopup();
+					if ((top >= maxFieldHeight || top <= spikesHeight) && !popupEnable) showHidePopup();
 
-					bird.style.top = (top > 420 ? 420 : (top < 10 ? 10 : top)) + 'px';
+					bird.style.top = (top > maxFieldHeight ? maxFieldHeight : (top < spikesHeight ? spikesHeight : top)) + 'px';
 				}
 			});
 
@@ -182,14 +208,23 @@
 
 					let left = startLeft + width * progress * (reverse === true ? -1 : 1);
 
-					if (left > 750 || left < 0) {
+					if (left > maxFieldWidth || left < 0) {
 						reverse = !reverse;
-						left = left > 750 ? 750 : (left < 0 ? 0 : left);
+						left = left > maxFieldWidth ? maxFieldWidth : (left < 0 ? 0 : left);
 						startLeft = left + (left - startLeft);
 						++score;
 						setScore();
 					}
-					//console.log(block22.style.top.substr(0, 3));
+
+					let blocks = document.getElementsByClassName('block');
+					for (let i = 0; i < blocks.length; i++) {
+						if (
+							bird.offsetLeft + bird.offsetWidth > blocks[i].offsetLeft &&
+							bird.offsetLeft < blocks[i].offsetLeft + blocks[i].offsetWidth &&
+							bird.offsetTop + bird.offsetHeight > blocks[i].offsetTop &&
+							bird.offsetTop < blocks[i].offsetTop + blocks[i].offsetHeight
+						) showHidePopup();
+					}
 
 					bird.style.transform = 'scale(' + (reverse ? -1 : 1) + ', 1)';
 					bird.style.left = left + "px";
@@ -206,7 +241,11 @@
 		}
 
 		function setScore() {
-			if (score > bestScore) bestScore = score;
+			if (score > bestScore) {
+				deleteCookie('flappyBestScore');
+				setCookie('flappyBestScore', score, 180);
+				bestScore = score;
+			}
 
 			document.getElementById('score').innerHTML = 'SCORE: ' + score;
 			document.getElementById('bestScore').innerHTML = 'BEST SCORE: ' + bestScore;
@@ -216,6 +255,7 @@
 		function setStage() {
 			let styleTop = 0;
 			if (score >= 0 && score <2) {
+				changeColor('#7b7b7b', '#eaeaea');
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block11.style.top = '-300px';
 				block12.style.top = '500px';
@@ -223,23 +263,28 @@
 				block22.style.top = styleTop + 'px';
 				block31.style.top = '-300px';
 				block32.style.top = '500px';
+				width = 350;
 			}
 			if (score >= 2 && score <3) {
+				changeColor('#7b6d6d', '#f5eeec');
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block21.style.top = '-300px';
 				block22.style.top = '500px';
 				block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block32.style.top = styleTop + 'px';
+				width = width + 20;
 			}
-			if (score >= 3 && score <6) {
+			if (score >= 3 && score <5) {
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block12.style.top = styleTop + 'px';
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block32.style.top = styleTop + 'px';
+				width = width + 10;
 			}
-			if (score >= 6) {
+			if (score >= 5) {
+				changeColor('#6b747b', '#bed5ea');
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block12.style.top = styleTop + 'px';
@@ -249,6 +294,25 @@
 				styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 				block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 				block32.style.top = styleTop + 'px';
+				width = width + 10;
+			}
+		}
+
+		function changeColor(primary, secondary) {
+			field.style.backgroundColor = secondary;
+			document.body.style.backgroundColor = primary;
+			let triangleUp = document.getElementsByClassName('triangle-up');
+			let triangleDown = document.getElementsByClassName('triangle-down');
+			let blocks = document.getElementsByClassName('block');
+
+			for (let i = 0; i < triangleUp.length; i++) {
+				triangleUp[i].style.borderBottomColor = primary;
+			}
+			for (let i = 0; i < triangleDown.length; i++) {
+				triangleDown[i].style.borderTopColor = primary;
+			}
+			for (let i = 0; i < blocks.length; i++) {
+				blocks[i].style.backgroundColor = primary;
 			}
 		}
 		
@@ -292,6 +356,50 @@
 
 				if (timeFraction < 1) requestAnimationFrame(animate);
 			});
+		}
+
+		function setCookie(name,value,days) {
+			let expires = "";
+			if (days) {
+				let date = new Date();
+				date.setTime(date.getTime() + (days*24*60*60*1000));
+				expires = ", expires=" + date.toUTCString();
+			}
+			document.cookie = name + "=" + (value || "")  + expires + ", path=/";
+		}
+
+		function getCookie(name) {
+			let nameEQ = name + "=";
+			let ca = document.cookie.split(';');
+			for(let i=0;i < ca.length;i++) {
+				let c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function deleteCookie(name) {
+			document.cookie = name+'=, Max-Age=-99999999';
+		}
+
+		function removeMobileOnclick() {
+			if(isMobile()) {
+				start.onclick  = '';
+				field.onclick  = '';
+			}
+		}
+
+		function isMobile() {
+			if (navigator.userAgent.match(/Android/i)
+				|| navigator.userAgent.match(/iPhone/i)
+				|| navigator.userAgent.match(/iPad/i)
+				|| navigator.userAgent.match(/iPod/i)
+				|| navigator.userAgent.match(/BlackBerry/i)
+				|| navigator.userAgent.match(/Windows Phone/i)
+				|| navigator.userAgent.match(/Opera Mini/i)
+				|| navigator.userAgent.match(/IEMobile/i)
+			) return true;
 		}
 	</script>
 </body>

@@ -2,26 +2,50 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+html {
+	-webkit-tap-highlight-color: transparent;
+}
+
 body {
 	margin: 0;
 	background-color: #7b7b7b;
 	overflow: hidden;
+	transition: 0.2s;
+}
+
+.alert-rotate {
+	position: absolute;
+	background-color: #e23658d9;
+	width: 100vw;
+	height: 100vh;
+	color: whitesmoke;
+	z-index: 10000;
+	text-align: center;
+	font-weight: 300;
+	font-size: 26px;
+	line-height: 100vh;
+	transition: .2s;
 }
 
 .field {
     width: 800px;
-    height: 482px;
+    height: 480px;
     margin: auto;
     position: relative;
     cursor: pointer;
     background-color: #eaeaea;
+	transition: 0.2s;
 }
 
 .bird {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 40px;
 	z-index: 100;
+	background-image: url(../img/bird.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .block {
@@ -73,6 +97,8 @@ body {
 	border-right: 20px solid transparent;
 	border-top: 20px solid #7b7b7b;
 	float: left;
+	transition: 0.2s;
+	margin-top: -1px;
 }
 
 .triangle-up {
@@ -82,10 +108,12 @@ body {
 	border-right: 20px solid transparent;
 	border-bottom: 20px solid #7b7b7b;
 	float: left;
+	transition: 0.2s;
+	margin-top: 1px;
 }
 
 .margin462 {
-	height: 462px;
+	height: 460px;
 	width: 100%;
 }
 
@@ -98,6 +126,9 @@ body {
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+	-webkit-touch-callout: none;
+	-ms-user-select: none;
+	outline: none;
 }
 
 p {
@@ -109,7 +140,9 @@ p {
 	-webkit-animation-name: animatebottom;
 	-webkit-animation-duration: .7s;
 	animation-name: animatebottom;
-	animation-duration: .7s
+	animation-duration: .7s;
+	overflow: hidden;
+	height: 100vh;
 }
 
 @-webkit-keyframes animatebottom {
@@ -258,5 +291,39 @@ p {
 		box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.3);
 		-webkit-transform: scale(1);
 		transform: scale(1);
+	}
+}
+
+@media (max-width: 800px) {
+	.zoom {
+		zoom: 90%;
+	}
+}
+
+@media (max-device-height: 500px) {
+	.mtop-40 {
+		margin-top: 0;
+	}
+
+	.zoom {
+		zoom: 75%;
+	}
+}
+
+@media (max-device-height: 400px) {
+	.zoom {
+		zoom: 70%;
+	}
+}
+
+@media (max-device-height: 375px) {
+	.zoom {
+		zoom: 65%;
+	}
+}
+
+@media (max-device-height: 350px) {
+	.zoom {
+		zoom: 60%;
 	}
 }
