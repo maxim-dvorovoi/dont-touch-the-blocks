@@ -19,6 +19,7 @@ flyClickable.onclick = function(event) { clickFly(event) };
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
+document.ontouchmove = function(event) { event.preventDefault() };
 
 isLandscape();
 window.onresize = isLandscape;
