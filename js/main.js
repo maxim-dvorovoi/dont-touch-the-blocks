@@ -31,7 +31,7 @@ function showPage() {
 function isLandscape() {
 	let orientation = screen.msOrientation || screen.mozOrientation || (screen.orientation || {}).type;
 
-	if (orientation == 'landscape-primary' || orientation == 'landscape-secondary') {
+	if (orientation == 'landscape-primary' || orientation == 'landscape-secondary' || orientation == 90 || orientation == -90) {
 		rotate.style.display = 'none';
 	} else {
 		rotate.style.display = 'block';
