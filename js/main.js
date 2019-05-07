@@ -23,9 +23,11 @@ document.addEventListener('keyup', function() { keyPress = false });
 isLandscape();
 window.onresize = isLandscape;
 
+
+
 function showPage() {
 	document.getElementById("loader").style.display = "none";
-	document.getElementById("index").style.display = "block";
+	document.getElementById("index").style.opacity = "1";
 }
 
 function isLandscape() {
@@ -38,6 +40,25 @@ function isLandscape() {
 		rotate.style.display = 'none';
 	} else {
 		rotate.style.display = 'block';
+	}
+
+	let scale = null;
+	if (screen.height < field.offsetHeight) {
+		scale = screen.height / field.offsetHeight;
+	} else if (screen.width < field.offsetWidth) {
+		scale = screen.width / field.offsetWidth;
+	} else {
+		let scale = null;
+	}
+
+	if (scale) {
+		zoom.style.transform = 'scale(' + scale + ')';
+		zoom.style.position = 'absolute';
+		zoom.style.left = ((screen.width - field.offsetWidth * scale) / 2) + 'px';
+		zoom.style.top = ((screen.height - field.offsetHeight * scale) / 2) + 'px';;
+	} else {
+		zoom.style.transform = 'none';
+		zoom.style.position = 'static';
 	}
 }
 
