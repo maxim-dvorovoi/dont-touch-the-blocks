@@ -4,6 +4,10 @@
 	<title>Flappy Bird</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<link rel="shortcut icon" href="img/favicon.png" type="image/png">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
@@ -19,7 +23,7 @@
 
 	<div style="display:none" id="index"  class="animate-bottom">
 		<div class="alert-rotate" id="rotate" style="display:none">
-			PLEASE ROTATE YOUR DEVICE TO PLAY
+			PLEASE ROTATE YOUR DEVICE
 		</div>
 
 		<div class="zoom">
@@ -27,6 +31,9 @@
 				<div class="field unselectable" id="field" class="unselectable">
 					<div class="bird" id="bird"></div>
 
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
+					<div class="triangle-down"></div>
 					<div class="triangle-down"></div>
 					<div class="triangle-down"></div>
 					<div class="triangle-down"></div>
@@ -70,14 +77,17 @@
 					<div class="triangle-up"></div>
 					<div class="triangle-up"></div>
 					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
+					<div class="triangle-up"></div>
 				</div>
 
-				<div class="block" id="block11" style="left: 185px; top: -300px"></div>
-				<div class="block" id="block12" style="left: 185px;"></div>
-				<div class="block" id="block21" style="left: 365px; top: -300px"></div>
-				<div class="block" id="block22" style="left: 365px;"></div>
-				<div class="block" id="block31" style="left: 545px; top: -300px"></div>
-				<div class="block" id="block32" style="left: 545px;"></div>
+				<div class="block" id="block11" style="left: 205px; top: -300px"></div>
+				<div class="block" id="block12" style="left: 205px;"></div>
+				<div class="block" id="block21" style="left: 425px; top: -300px"></div>
+				<div class="block" id="block22" style="left: 425px;"></div>
+				<div class="block" id="block31" style="left: 645px; top: -300px"></div>
+				<div class="block" id="block32" style="left: 645px;"></div>
 
 				<div class="popup" id="popup">
 					<div class="button" id="start">START</div>
@@ -107,21 +117,29 @@
 		}
 
 		showHidePopup();
-		//window.addEventListener('load', removeMobileOnclick);
-
 		start.onclick = function(event) { startClick(event) };
 		field.onclick = function(event) { clickFly(event) };
 
-		//start.ontouchstart = function(event) { startClick(event); };
-		//field.ontouchstart = function(event) { clickFly(event) };
-		document.addEventListener("touchstart", function(){}, true);
 		document.addEventListener('keydown', keyDown);
 		document.addEventListener('keyup', function() { keyPress = false });
 
-		rotate.style.display = (window.screen.orientation.type != 'landscape-primary' ? 'block' : 'none');
-		window.onresize = function() {
-			rotate.style.display = (window.screen.orientation.type != 'landscape-primary' ? 'block' : 'none');
-		};
+		isLandscape();
+		window.onresize = isLandscape;
+
+		function showPage() {
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("index").style.display = "block";
+		}
+
+		function isLandscape() {
+			let orientation = screen.msOrientation || screen.mozOrientation || (screen.orientation || {}).type;
+
+			if (orientation == 'landscape-primary' || orientation == 'landscape-secondary') {
+				rotate.style.display = 'none';
+			} else {
+				rotate.style.display = 'block';
+			}
+		}
 
 		function keyDown(event) {
 			if (keyPress) return;
@@ -129,11 +147,6 @@
 				keyPress = true;
 				return popupEnable ? startClick(event) : clickFly(event);
 			}
-		}
-
-		function showPage() {
-			document.getElementById("loader").style.display = "none";
-			document.getElementById("index").style.display = "block";
 		}
 
 		function startClick(event) {
@@ -146,7 +159,7 @@
 			showHidePopup();
 
 			animate({
-				duration: 2000,
+				duration: 2200,
 				timing: makeEaseOut(bounce),
 				draw: function(progress) {
 					if (popupEnable || currentClick !== clickCount) return;
@@ -187,7 +200,7 @@
 			let currentClick = ++clickCount;
 
 			animate({
-				duration: 1000,
+				duration: 1150,
 				timing: makeInOut(jump),
 				draw: function(progress) {
 					if (popupEnable || currentClick !== clickCount) return;
