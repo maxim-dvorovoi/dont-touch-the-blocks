@@ -31,11 +31,9 @@ function showPage() {
 function isLandscape() {
 	let orientation = screen.msOrientation || screen.mozOrientation || (screen.orientation || {}).type;
 
-	if (
-		orientation == 'landscape-primary' ||
-		orientation == 'landscape-secondary' ||
-		window.orientation == 90 ||
-		window.orientation == -90
+	if (orientation == 'landscape-primary'
+		|| orientation == 'landscape-secondary'
+		|| Math.abs(window.orientation) == 90
 	) {
 		rotate.style.display = 'none';
 	} else {
