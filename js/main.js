@@ -216,7 +216,7 @@ function setScore() {
 		bestScore = score;
 	}
 
-	document.getElementById('score').innerHTML = 'SCORE: ' + score;
+	document.getElementById('score').innerHTML = score;
 	document.getElementById('bestScore').innerHTML = 'BEST SCORE: ' + bestScore;
 	setStage();
 }
@@ -271,6 +271,7 @@ function setStage() {
 
 function changeColor(primary, secondary) {
 	field.style.backgroundColor = secondary;
+	document.getElementById('score').style.color = secondary;
 	document.body.style.backgroundColor = primary;
 	let triangleUp = document.getElementsByClassName('triangle-up');
 	let triangleDown = document.getElementsByClassName('triangle-down');

@@ -117,15 +117,20 @@ p {
 
 .score {
 	position: absolute;
-	margin-top: 30px;
-	left: calc(50% - 50px);
+	left: calc(50% - 125px);
+	top: calc(50% - 125px);
 	font-size: 20px;
 	text-align: center;
-    color: white;
-    letter-spacing: 1px;
-	z-index: 100;
-	width: 100px;
-
+	color: #eaeaea;
+	letter-spacing: 1px;
+	width: 250px;
+	height: 250px;
+	text-align: center;
+	border-radius: 50%;
+	line-height: 220px;
+	font-size: 200px;
+	background-color: #fff;
+	opacity: .8;
 }
 
 .unselectable {
