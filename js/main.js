@@ -19,12 +19,14 @@ flyClickable.onclick = function(event) { clickFly(event) };
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
-document.ontouchmove = function(event) { event.preventDefault() };
+document.addEventListener('touchmove', preventDefault, { passive: false });
 
 isLandscape();
 window.onresize = isLandscape;
 
-
+function preventDefault(e){
+	e.preventDefault();
+}
 
 function showPage() {
 	document.getElementById("loader").style.display = "none";
