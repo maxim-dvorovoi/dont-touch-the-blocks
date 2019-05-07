@@ -6,6 +6,7 @@ let score = 0;
 let width = 350;
 let minAreaBetweenBlocks = 500;
 let bestScore = 0;
+let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
 if (getCookie('flappyBestScore')) {
 	let cookie = getCookie('flappyBestScore').split(',')[0];
@@ -19,7 +20,7 @@ flyClickable.onclick = function(event) { clickFly(event) };
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
-document.addEventListener('touchmove', preventDefault, { passive: false });
+if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
 
 isLandscape();
 window.onresize = isLandscape;
