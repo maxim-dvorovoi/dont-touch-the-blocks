@@ -15,7 +15,7 @@ if (getCookie('flappyBestScore')) {
 
 showHidePopup();
 start.onclick = function(event) { startClick(event) };
-field2.onclick = function(event) { clickFly(event) };
+flyClickable.onclick = function(event) { clickFly(event) };
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
