@@ -44,9 +44,9 @@ function isLandscape() {
 
 	let scale = null;
 	if (window.innerHeight < field.offsetHeight) {
-		scale = window.innerHeight / field.offsetHeight - 0.1;
+		scale = window.innerHeight / field.offsetHeight - 0.05;
 	} else if (window.innerWidth < field.offsetWidth) {
-		scale = window.innerWidth / field.offsetWidth - 0.1;
+		scale = window.innerWidth / field.offsetWidth - 0.05;
 	} else {
 		let scale = null;
 	}
