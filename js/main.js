@@ -55,7 +55,7 @@ function isLandscape() {
 		zoom.style.transform = 'scale(' + scale + ')';
 		zoom.style.position = 'absolute';
 		zoom.style.left = ((screen.width - field.offsetWidth * scale) / 2) + 'px';
-		zoom.style.top = ((screen.height - field.offsetHeight * scale) / 2 - 5) + 'px';
+		zoom.style.top = ((screen.height - field.offsetHeight * scale) / 2 - 10) + 'px';
 	} else {
 		zoom.style.transform = 'none';
 		zoom.style.position = 'static';
