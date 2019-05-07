@@ -43,10 +43,10 @@ function isLandscape() {
 	}
 
 	let scale = null;
-	if (screen.height < field.offsetHeight) {
-		scale = screen.height / field.offsetHeight - 0.1;
-	} else if (screen.width < field.offsetWidth) {
-		scale = screen.width / field.offsetWidth - 0.1;
+	if (window.innerHeight < field.offsetHeight) {
+		scale = window.innerHeight / field.offsetHeight - 0.1;
+	} else if (window.innerWidth < field.offsetWidth) {
+		scale = window.innerWidth / field.offsetWidth - 0.1;
 	} else {
 		let scale = null;
 	}
@@ -54,8 +54,8 @@ function isLandscape() {
 	if (scale) {
 		zoom.style.transform = 'scale(' + scale + ')';
 		zoom.style.position = 'absolute';
-		zoom.style.left = ((screen.width - field.offsetWidth * scale) / 2) + 'px';
-		zoom.style.top = ((screen.height - field.offsetHeight * scale) / 2 - 10) + 'px';
+		zoom.style.left = ((window.innerWidth - field.offsetWidth * scale) / 2) + 'px';
+		zoom.style.top = ((window.innerHeight - field.offsetHeight * scale) / 2) + 'px';
 	} else {
 		zoom.style.transform = 'none';
 		zoom.style.position = 'static';
