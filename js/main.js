@@ -168,7 +168,7 @@ function clickFly(event) {
 }
 
 function jump(timeFraction) {
-	return  Math.pow(timeFraction - 0.4, 2) * (timeFraction / 2 + 0.938) - 0.15;
+	return  Math.pow(timeFraction - 0.4, 2) * (timeFraction / 2 + 0.82) - 0.13;
 }
 
 function makeInOut(timing) {
@@ -253,8 +253,8 @@ function setStage() {
 		block32.style.top = styleTop + 'px';
 		width = width + 10;
 	}
-	if (score >= 5 && score < 10) {
-		changeColor('#6b747b', '#bed5ea');
+	if (score >= 5 && score < 15) {
+		if (score < 10) changeColor('#6b747b', '#bed5ea');
 		styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 		block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 		block12.style.top = styleTop + 'px';
