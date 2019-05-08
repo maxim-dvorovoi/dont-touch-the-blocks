@@ -81,6 +81,7 @@ function startClick(event) {
 	showHidePopup();
 
 	animate({
+		currentClick,
 		duration: 2400,
 		timing: makeEaseOut(bounce),
 		draw: function(progress) {
@@ -94,6 +95,7 @@ function startClick(event) {
 	});
 
 	animate({
+		currentClick,
 		duration: 2000,
 		timing: makeEaseOut(quad),
 		draw: function(progress) {
@@ -122,6 +124,8 @@ function clickFly(event) {
 	let height = field.clientHeight - bird.clientHeight;
 
 	animate({
+		currentClick,
+		top: true,
 		duration: 1150,
 		timing: makeInOut(jump),
 		draw: function(progress) {
@@ -135,6 +139,7 @@ function clickFly(event) {
 	});
 
 	animate({
+		currentClick,
 		duration: 2000,
 		timing: makeEaseOut(quad),
 		draw: function(progress) {
@@ -168,7 +173,7 @@ function clickFly(event) {
 }
 
 function jump(timeFraction) {
-	return  Math.pow(timeFraction - 0.4, 2) * (timeFraction / 2 + 0.82) - 0.13;
+	return  Math.pow(timeFraction - 0.4, 2) * (timeFraction / 2 + 0.845) - 0.135;
 }
 
 function makeInOut(timing) {
@@ -199,13 +204,17 @@ function animate(options) {
 	let start = performance.now();
 
 	requestAnimationFrame(function animate(time) {
+		if (popupEnable || options.currentClick !== clickCount) return;
+
 		let timeFraction = (time - start) / options.duration;
-		if (timeFraction > 1) timeFraction = 1;
+		if (timeFraction > 1 && !options.top) timeFraction = 1;
+		if (timeFraction > 2 && options.top) timeFraction = 2;
 
 		let progress = options.timing(timeFraction);
 		options.draw(progress);
 
-		if (timeFraction < 1) requestAnimationFrame(animate);
+		if (timeFraction < 1 && !options.top) requestAnimationFrame(animate);
+		if (timeFraction < 2 && options.top) requestAnimationFrame(animate);
 	});
 }
 
