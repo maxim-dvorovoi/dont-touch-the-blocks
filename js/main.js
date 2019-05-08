@@ -81,7 +81,7 @@ function startClick(event) {
 	showHidePopup();
 
 	animate({
-		duration: 2200,
+		duration: 2400,
 		timing: makeEaseOut(bounce),
 		draw: function(progress) {
 			if (popupEnable || currentClick !== clickCount) return;
@@ -112,6 +112,7 @@ function clickFly(event) {
 		bird.style.backgroundImage = "url('./img/bird.png')";
 	}, 200);
 
+	let currentClick = ++clickCount;
 	let spikesHeight = document.getElementsByClassName('triangle-up')[0].offsetHeight - 5;
 	let maxFieldWidth = field.offsetWidth - bird.offsetWidth;
 	let maxFieldHeight = field.offsetHeight - bird.offsetHeight - spikesHeight;
@@ -119,7 +120,6 @@ function clickFly(event) {
 	let startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
 	let startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
 	let height = field.clientHeight - bird.clientHeight;
-	let currentClick = ++clickCount;
 
 	animate({
 		duration: 1150,
@@ -168,7 +168,7 @@ function clickFly(event) {
 }
 
 function jump(timeFraction) {
-	return  Math.pow(timeFraction*1.2, 2) * (2.2 * (timeFraction + 0.1) - 1.8)
+	return  Math.pow(timeFraction - 0.4, 2) * (timeFraction / 2 + 0.938) - 0.15;
 }
 
 function makeInOut(timing) {
@@ -242,7 +242,7 @@ function setStage() {
 		block22.style.top = '500px';
 		block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 		block32.style.top = styleTop + 'px';
-		width = width + 20;
+		width = width + 10;
 	}
 	if (score >= 3 && score <5) {
 		styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
@@ -253,9 +253,25 @@ function setStage() {
 		block32.style.top = styleTop + 'px';
 		width = width + 10;
 	}
-	if (score >= 5) {
-		minAreaBetweenBlocks = 520;
+	if (score >= 5 && score < 10) {
 		changeColor('#6b747b', '#bed5ea');
+		styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
+		block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
+		block12.style.top = styleTop + 'px';
+		block21.style.top = '-300px';
+		block22.style.top = '500px';
+		styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
+		block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
+		block32.style.top = styleTop + 'px';
+		width = width + 10;
+	}
+	if (score >= 10 && score < 15) {
+		changeColor('#667b67', '#bfeac4');
+	}
+	if (score >= 15) {
+		if (score < 20) changeColor('#7b5c62', '#eab5bb');
+
+		minAreaBetweenBlocks = 540;
 		styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 		block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 		block12.style.top = styleTop + 'px';
@@ -266,6 +282,12 @@ function setStage() {
 		block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 		block32.style.top = styleTop + 'px';
 		width = width + 10;
+	}
+	if (score >= 20 && score < 25) {
+		changeColor('#7b7861', '#eae6b6');
+	}
+	if (score >= 25) {
+		changeColor('#6f637b', '#d9c5ea');
 	}
 }
 

@@ -17,6 +17,11 @@ p {
 	text-align: center;
 }
 
+a {
+	color: white;
+	text-decoration: none;
+}
+
 .alert-rotate {
 	position: absolute;
 	background-color: #e23658d9;
