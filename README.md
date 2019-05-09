@@ -6,9 +6,9 @@ Probably everyone knows the legendary Flappy Bird game. Dont touch the blocks is
 This Game was my final project. I have used object-oriented programming and functional programming, to learn how it works.
 
 ## Features
-- [x] Differents levels
+- [x] Many differents levels
 - [x] Random choosing size blocks
-- [x] So many pretty colours of backgrounds
+- [x] Pretty colours of backgrounds
 - [x] Score table with best scores
 - [x] Keyboard space control
 - [x] Mobile optimization
