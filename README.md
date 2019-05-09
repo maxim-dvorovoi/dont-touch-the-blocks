@@ -10,8 +10,8 @@ This Game was my final project. I have used object-oriented programming and func
 - [x] Random choosing size blocks
 - [x] So many pretty colours of backgrounds
 - [x] Score table with best scores
-- [x] Play anywhere
 - [x] Keyboard space control
+- [x] Mobile optimization
 - [ ] Play again without reload page
 
 ## Technologies used
