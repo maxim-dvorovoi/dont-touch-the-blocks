@@ -7,7 +7,6 @@ let width = 350;
 let minAreaBetweenBlocks = 500;
 let bestScore = 0;
 let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-bird.style.backgroundImage = "url('./img/bird.png')";
 
 if (getCookie('flappyBestScore')) {
 	let cookie = getCookie('flappyBestScore').split(',')[0];
@@ -109,9 +108,11 @@ function startClick(event) {
 function clickFly(event) {
 	if (popupEnable) return;
 
-	bird.style.backgroundImage = "url('./img/birdFly.png')";
+	birdDown.style.display = 'none';
+	birdFly.style.display = 'block';
 	setTimeout(function() {
-		bird.style.backgroundImage = "url('./img/bird.png')";
+		birdFly.style.display = 'none';
+		birdDown.style.display = 'block';
 	}, 200);
 
 	let currentClick = ++clickCount;
