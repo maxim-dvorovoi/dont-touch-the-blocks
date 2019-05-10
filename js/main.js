@@ -6,6 +6,8 @@ let score = 0;
 let width = 350;
 let minAreaBetweenBlocks = 500;
 let bestScore = 0;
+let audioFly = new Audio('./audio/swish.mp3');
+let audioPunch = new Audio('./audio/punch.mp3');
 let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
 if (getCookie('flappyBestScore')) {
@@ -115,6 +117,9 @@ function startClick(event) {
 function clickFly(event) {
 	if (popupEnable) return;
 
+	audioFly.pause();
+	audioFly.currentTime = 0;
+	audioFly.play();
 	birdDown.style.display = 'none';
 	birdFly.style.display = 'block';
 	setTimeout(function() {
@@ -187,6 +192,10 @@ function clickFly(event) {
 }
 
 function vibrate() {
+	audioPunch.pause();
+	audioPunch.currentTime = 0;
+	audioPunch.play();
+
 	if (window.navigator && window.navigator.vibrate) {
 		navigator.vibrate(200);
 	}
