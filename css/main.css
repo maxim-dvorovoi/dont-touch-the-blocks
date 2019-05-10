@@ -4,6 +4,8 @@
 
 html {
 	-webkit-tap-highlight-color: transparent;
+	-webkit-transform: translateZ(0px);
+	-webkit-transform: translate3d(0,0,0);
 }
 
 body {
