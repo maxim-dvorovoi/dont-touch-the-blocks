@@ -188,7 +188,7 @@ function clickFly(event) {
 
 function vibrate() {
 	if (window.navigator && window.navigator.vibrate) {
-		navigator.vibrate(500);
+		navigator.vibrate(300);
 	}
 }
 
