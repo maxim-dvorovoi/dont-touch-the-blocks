@@ -1,6 +1,7 @@
 let popupEnable = false;
 let reverse = false;
 let keyPress = false;
+let volume = true;
 let clickCount = 0;
 let score = 0;
 let width = 350;
@@ -22,12 +23,27 @@ start.onclick = startClick;
 flyClickable.onclick = !detectMobile() ? clickFly : '';
 if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
 
+volUp.onclick = setVolumeMute;
+volMute.onclick = setVolumeUp;
+
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
 document.addEventListener('touchstart', function () { if (detectMobile()) clickFly()});
 
 isLandscape();
 window.onresize = isLandscape;
+
+function setVolumeMute() {
+	volume = false;
+	volUp.style.display = 'none';
+	volMute.style.display = 'block';
+}
+
+function setVolumeUp() {
+	volume = true;
+	volMute.style.display ='none';
+	volUp.style.display ='block';
+}
 
 function showPage() {
 	loader.style.display = "none";
@@ -117,9 +133,12 @@ function startClick(event) {
 function clickFly(event) {
 	if (popupEnable) return;
 
-	audioFly.pause();
-	audioFly.currentTime = 0;
-	audioFly.play();
+	if (volume) {
+		audioFly.pause();
+		audioFly.currentTime = 0;
+		audioFly.play();
+	}
+
 	birdDown.style.display = 'none';
 	birdFly.style.display = 'block';
 	setTimeout(function() {
@@ -192,12 +211,14 @@ function clickFly(event) {
 }
 
 function vibrate() {
-	audioPunch.pause();
-	audioPunch.currentTime = 0;
-	audioPunch.play();
+	if (volume) {
+		audioPunch.pause();
+		audioPunch.currentTime = 0;
+		audioPunch.play();
+	}
 
 	if (window.navigator && window.navigator.vibrate) {
-		navigator.vibrate(200);
+		navigator.vibrate(100);
 	}
 }
 

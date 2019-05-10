@@ -4,8 +4,6 @@
 
 html {
 	-webkit-tap-highlight-color: transparent;
-	-webkit-transform: translateZ(0px);
-	-webkit-transform: translate3d(0,0,0);
 }
 
 body {
@@ -43,9 +41,9 @@ a {
 	opacity: 0;
 	z-index: -1;
 	width: 150px;
-	height: 150px;
+	height: 190px;
 	left: calc(50% - 75px);
-	top: calc(50% - 75px);
+	top: calc(50% - 95px);
 	transition: .3s;
 	text-align: center;
 	font-size: 16px;
