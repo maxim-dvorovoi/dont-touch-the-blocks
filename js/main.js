@@ -17,10 +17,12 @@ if (getCookie('flappyBestScore')) {
 showHidePopup();
 
 start.onclick = startClick;
-flyClickable.onclick = clickFly;
+flyClickable.onclick = !detectMobile() ? clickFly : '';
+if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
+
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
-if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
+document.addEventListener('touchstart', function () { if (detectMobile()) clickFly()});
 
 isLandscape();
 window.onresize = isLandscape;
@@ -50,13 +52,15 @@ function isLandscape() {
 		rotate.style.display = 'block';
 	}
 
+	scale();
+}
+
+function scale() {
 	let scale = null;
 	if (window.innerHeight < field.offsetHeight) {
 		scale = window.innerHeight / field.offsetHeight - 0.05;
 	} else if (window.innerWidth < field.offsetWidth) {
 		scale = window.innerWidth / field.offsetWidth - 0.05;
-	} else {
-		let scale = null;
 	}
 
 	if (scale) {
@@ -81,7 +85,7 @@ function startClick(event) {
 
 	animate({
 		currentClick,
-		duration: 2400,
+		duration: 2700,
 		timing: makeEaseOut(bounce),
 		draw: function(progress) {
 			if (popupEnable || currentClick !== clickCount) return;
@@ -164,7 +168,9 @@ function clickFly(event) {
 					bird.offsetLeft < blocks[i].offsetLeft + blocks[i].offsetWidth &&
 					bird.offsetTop + bird.offsetHeight > blocks[i].offsetTop &&
 					bird.offsetTop < blocks[i].offsetTop + blocks[i].offsetHeight
-				) showHidePopup();
+				) {
+					showHidePopup();
+				}
 			}
 
 			bird.style.transform = 'scale(' + (reverse ? -1 : 1) + ', 1)';
@@ -291,14 +297,17 @@ function setStage() {
 		styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 		block31.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 		block32.style.top = styleTop + 'px';
-		width = width + 10;
+		width = width + 1;
 	}
-	if (score >= 20 && score < 25) {
-		changeColor('#7b7861', '#eae6b6');
-	}
-	if (score >= 25) {
-		changeColor('#6f637b', '#d9c5ea');
-	}
+	if (score >= 20 && score < 25) changeColor('#6f637b', '#d9c5ea');
+	if (score >= 25 && score < 30) changeColor('#4f5a9c', '#a4b2f6');
+	if (score >= 30 && score < 35) changeColor('#539f6d', '#a7f6ab');
+	if (score >= 35 && score < 40) changeColor('#9f9f60', '#f6f4ae');
+	if (score >= 40 && score < 45) changeColor('#9f525a', '#f698a0');
+	if (score >= 45 && score < 50) changeColor('#4c9f9b', '#c3f5f6');
+	if (score >= 50 && score < 55) changeColor('#9a629f', '#f2c0f6');
+	if (score >= 55 && score < 60) changeColor('#859f34', '#dbf6b5');
+	if (score >= 60) changeColor('#6e7584', '#c8d5dd');
 }
 
 function changeColor(primary, secondary) {
@@ -350,6 +359,22 @@ function keyDown(event) {
 	if (event.keyCode === 32) {
 		keyPress = true;
 		return popupEnable ? startClick(event) : clickFly(event);
+	}
+}
+
+function detectMobile() {
+	if( navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Windows Phone/i)
+	){
+		return true;
+	}
+	else {
+		return false;
 	}
 }
 
