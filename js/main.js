@@ -91,7 +91,10 @@ function startClick(event) {
 			if (popupEnable || currentClick !== clickCount) return;
 
 			let top = height * progress;
-			if (top >= 425) showHidePopup();
+			if (top >= 425) {
+				vibrate();
+				showHidePopup();
+			}
 
 			bird.style.top = top + 'px';
 		}
@@ -137,7 +140,10 @@ function clickFly(event) {
 			if (popupEnable || currentClick !== clickCount) return;
 			let top = startTop + height * progress;
 
-			if ((top >= maxFieldHeight || top <= spikesHeight) && !popupEnable) showHidePopup();
+			if ((top >= maxFieldHeight || top <= spikesHeight) && !popupEnable) {
+				vibrate();
+				showHidePopup();
+			}
 
 			bird.style.top = (top > maxFieldHeight ? maxFieldHeight : (top < spikesHeight ? spikesHeight : top)) + 'px';
 		}
@@ -169,6 +175,7 @@ function clickFly(event) {
 					bird.offsetTop + bird.offsetHeight > blocks[i].offsetTop &&
 					bird.offsetTop < blocks[i].offsetTop + blocks[i].offsetHeight
 				) {
+					vibrate();
 					showHidePopup();
 				}
 			}
@@ -177,6 +184,12 @@ function clickFly(event) {
 			bird.style.left = left + "px";
 		}
 	});
+}
+
+function vibrate() {
+	if (window.navigator && window.navigator.vibrate) {
+		navigator.vibrate(1000);
+	}
 }
 
 function jump(timeFraction) {
