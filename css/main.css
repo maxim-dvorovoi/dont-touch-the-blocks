@@ -55,7 +55,6 @@ a {
 	margin: auto;
 	transform-origin: left top;
 	transition: .3s;
-	will-change: transform;
 }
 
 .field {
@@ -134,7 +133,6 @@ a {
 	line-height: 220px;
 	font-size: 200px;
 	background-color: #fff;
-	will-change: position;
 }
 
 .unselectable {
