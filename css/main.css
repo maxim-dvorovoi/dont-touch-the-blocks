@@ -10,7 +10,7 @@ body {
 	margin: 0;
 	background-color: #7b7b7b;
 	overflow: hidden;
-	transition: 0.2s;
+	transition: .3s;
 }
 
 p {
@@ -33,7 +33,7 @@ a {
 	font-weight: 300;
 	font-size: 26px;
 	line-height: 100vh;
-	transition: .2s;
+	transition: .3s;
 }
 
 .popup {
@@ -64,7 +64,7 @@ a {
     position: relative;
     cursor: pointer;
     background-color: #eaeaea;
-	transition: 0.2s;
+	transition: .3s;
 }
 
 .bird {
@@ -81,7 +81,7 @@ a {
 	width: 70px;
 	height: 300px;
 	background-color: #7b7b7b;
-	transition: .2s;
+	transition: .3s;
 	-webkit-transform: translate3d(0, 0, 0);
 	will-change: position;
 }
@@ -98,7 +98,7 @@ a {
 	border-right: 20px solid transparent;
 	border-top: 20px solid #7b7b7b;
 	float: left;
-	transition: 0.2s;
+	transition: .3s;
 	margin-top: -1px;
 }
 
@@ -109,7 +109,7 @@ a {
 	border-right: 20px solid transparent;
 	border-bottom: 20px solid #7b7b7b;
 	float: left;
-	transition: 0.2s;
+	transition: .3s;
 	margin-top: 442px;
 }
 
