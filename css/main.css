@@ -4,7 +4,6 @@
 
 html {
 	-webkit-tap-highlight-color: transparent;
-	-webkit-touch-callout: none;
 }
 
 body {
@@ -56,6 +55,7 @@ a {
 	margin: auto;
 	transform-origin: left top;
 	transition: .3s;
+	will-change: transform;
 }
 
 .field {
@@ -74,6 +74,7 @@ a {
     height: 40px;
 	z-index: 1;
 	-webkit-transform: translate3d(0, 0, 0);
+	will-change: position, transform;
 }
 
 .block {
@@ -82,6 +83,7 @@ a {
 	height: 300px;
 	background-color: #7b7b7b;
 	transition: .2s;
+	will-change: position;
 }
 
 .triangles {
@@ -132,6 +134,7 @@ a {
 	line-height: 220px;
 	font-size: 200px;
 	background-color: #fff;
+	will-change: position;
 }
 
 .unselectable {
