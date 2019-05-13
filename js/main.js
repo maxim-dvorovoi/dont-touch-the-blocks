@@ -74,20 +74,16 @@ function isLandscape() {
 }
 
 function scale() {
-	let scale = null;
+	let scale = 1;
 	if (window.innerHeight < field.offsetHeight) {
 		scale = window.innerHeight / field.offsetHeight - 0.05;
 	} else if (window.innerWidth < field.offsetWidth) {
 		scale = window.innerWidth / field.offsetWidth - 0.05;
 	}
 
-	if (scale) {
-		zoom.style.transform = 'scale(' + scale + ')';
-		zoom.style['margin-left'] = ((window.innerWidth - field.offsetWidth * scale) / 2) + 'px';
-		zoom.style['margin-top'] = ((window.innerHeight - field.offsetHeight * scale) / 2) + 'px';
-	} else {
-		zoom.style.transform = 'none';
-	}
+	zoom.style.transform = 'scale(' + scale + ')';
+	zoom.style['margin-left'] = ((window.innerWidth - field.offsetWidth * scale) / 2) + 'px';
+	zoom.style['margin-top'] = ((scale < 1) ? ((window.innerHeight - field.offsetHeight * scale) / 2) : 40) + 'px';
 }
 
 function startClick(event) {
