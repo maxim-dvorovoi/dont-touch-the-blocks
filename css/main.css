@@ -73,7 +73,7 @@ a {
     height: 40px;
 	z-index: 1;
 	-webkit-transform: translate3d(0, 0, 0);
-	will-change: position, transform;
+	will-change: left, top, transform;
 }
 
 .block {
@@ -83,7 +83,7 @@ a {
 	background-color: #7b7b7b;
 	transition: .3s;
 	-webkit-transform: translate3d(0, 0, 0);
-	will-change: position;
+	will-change: top;
 }
 
 .triangles {
