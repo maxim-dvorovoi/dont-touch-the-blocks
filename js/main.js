@@ -133,11 +133,13 @@ function clickFly(event) {
 		audioFly.play();
 	}
 
-	birdDown.style.display = 'none';
-	birdFly.style.display = 'block';
+	bird.style['background-image'] = 'url(./img/birdFly.png)';
+	//birdDown.style.display = 'none';
+	//birdFly.style.display = 'block';
 	setTimeout(function() {
-		birdFly.style.display = 'none';
-		birdDown.style.display = 'block';
+		bird.style['background-image'] = 'url(./img/bird.png)';
+		//birdFly.style.display = 'none';
+		//birdDown.style.display = 'block';
 	}, 200);
 
 	let currentClick = ++clickCount;
