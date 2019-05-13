@@ -83,12 +83,10 @@ function scale() {
 
 	if (scale) {
 		zoom.style.transform = 'scale(' + scale + ')';
-		zoom.style.position = 'absolute';
-		zoom.style.left = ((window.innerWidth - field.offsetWidth * scale) / 2) + 'px';
-		zoom.style.top = ((window.innerHeight - field.offsetHeight * scale) / 2) + 'px';
+		zoom.style['margin-left'] = ((window.innerWidth - field.offsetWidth * scale) / 2) + 'px';
+		zoom.style['margin-top'] = ((window.innerHeight - field.offsetHeight * scale) / 2) + 'px';
 	} else {
 		zoom.style.transform = 'none';
-		zoom.style.position = 'static';
 	}
 }
 
