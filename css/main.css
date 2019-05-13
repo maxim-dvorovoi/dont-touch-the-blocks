@@ -82,6 +82,7 @@ a {
 	height: 300px;
 	background-color: #7b7b7b;
 	transition: .2s;
+	-webkit-transform: translate3d(0, 0, 0);
 	will-change: position;
 }
 
