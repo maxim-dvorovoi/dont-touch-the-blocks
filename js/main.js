@@ -29,7 +29,6 @@ volMute.onclick = setVolumeUp;
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
 document.addEventListener('touchstart', function () { if (detectMobile()) clickFly()});
-document.addEventListener('touchend', preventDefault);
 
 isLandscape();
 window.onresize = isLandscape;
