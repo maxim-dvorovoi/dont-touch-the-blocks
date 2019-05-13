@@ -324,7 +324,6 @@ function setStage() {
 	if (score >= 15) {
 		if (score < 20) changeColor('#7b5c62', '#eab5bb');
 
-		minAreaBetweenBlocks = 540;
 		styleTop = Math.floor(Math.random() * (450 - 250)) + 250;
 		block11.style.top = (styleTop - minAreaBetweenBlocks) + 'px';
 		block12.style.top = styleTop + 'px';

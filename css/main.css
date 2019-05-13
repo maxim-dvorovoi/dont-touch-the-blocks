@@ -119,11 +119,8 @@ a {
 }
 
 .score {
-	position: absolute;
-	left: calc(50% - 125px);
-	top: calc(50% - 125px);
-	font-size: 20px;
-	text-align: center;
+	margin-left: calc(50% - 125px);
+	margin-top: calc(85px - 50%);
 	color: #eaeaea;
 	letter-spacing: 1px;
 	width: 250px;
@@ -133,7 +130,6 @@ a {
 	line-height: 220px;
 	font-size: 200px;
 	background-color: #fff;
-	opacity: .8;
 }
 
 .unselectable {
