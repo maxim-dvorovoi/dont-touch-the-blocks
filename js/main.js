@@ -212,7 +212,7 @@ function vibrate() {
 	}
 
 	if (window.navigator && window.navigator.vibrate) {
-		navigator.vibrate(100);
+		navigator.vibrate(50);
 	}
 }
 
