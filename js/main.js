@@ -11,9 +11,6 @@ let audioFly = new Audio('./audio/swish.mp3');
 let audioPunch = new Audio('./audio/punch.mp3');
 let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
-bird.style['background-image'] = 'url(./img/bird.png)';
-bird.style['background-image'] = 'url(./img/birdFly.png)';
-
 if (getCookie('flappyBestScore')) {
 	let cookie = getCookie('flappyBestScore').split(',')[0];
 	bestScore = cookie ? parseInt(cookie) : 0;
@@ -136,13 +133,11 @@ function clickFly(event) {
 		audioFly.play();
 	}
 
-	bird.style['background-image'] = 'url(./img/birdFly.png)';
-	//birdDown.style.display = 'none';
-	//birdFly.style.display = 'block';
+	birdDown.style.display = 'none';
+	birdFly.style.display = 'block';
 	setTimeout(function() {
-		bird.style['background-image'] = 'url(./img/bird.png)';
-		//birdFly.style.display = 'none';
-		//birdDown.style.display = 'block';
+		birdFly.style.display = 'none';
+		birdDown.style.display = 'block';
 	}, 200);
 
 	let currentClick = ++clickCount;

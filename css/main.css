@@ -74,10 +74,10 @@ a {
     height: 40px;
 	z-index: 1;
 	backface-visibility: hidden;
+	transform: translate3d(0, 0, 0);
+	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-backface-visibility: hidden;
-	background-image: url('../img/bird.png');
-	background-repeat: no-repeat;
-	background-size: cover;
+	-webkit-perspective: 1000;
 }
 
 .block {
