@@ -18,10 +18,7 @@ showHidePopup();
 
 start.onclick = startClick;
 flyClickable.onclick = !detectMobile() ? clickFly : '';
-if (iOS) {
-	document.addEventListener('touchmove', preventDefault, { passive: false });
-	body.style['touch-action'] = 'none';
-}
+if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
