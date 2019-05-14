@@ -18,18 +18,14 @@ showHidePopup();
 
 start.onclick = startClick;
 flyClickable.onclick = !detectMobile() ? clickFly : '';
-if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
+if (iOS) {
+	document.body.style['touch-action'] = 'none';
+	document.addEventListener('touchmove', preventDefault, { passive: false });
+}
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
-document.addEventListener('touchstart', function (event) {
-	if (detectMobile()) clickFly();
-	let now = +(new Date());
-	if (doubleTouchStartTimestamp + 500 > now) {
-		event.preventDefault();
-	}
-	doubleTouchStartTimestamp = now;
-});
+document.addEventListener('touchstart', function () { if (detectMobile()) clickFly()});
 
 isLandscape();
 window.onresize = isLandscape;
