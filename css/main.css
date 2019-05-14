@@ -4,6 +4,7 @@
 
 html {
 	-webkit-tap-highlight-color: transparent;
+	touch-action: none;
 }
 
 body {
@@ -42,9 +43,9 @@ a {
 	opacity: 0;
 	z-index: -1;
 	width: 150px;
-	height: 190px;
+	height: 150px;
 	left: calc(50% - 75px);
-	top: calc(50% - 95px);
+	top: calc(50% - 75px);
 	transition: .3s;
 	text-align: center;
 	font-size: 16px;
@@ -84,6 +85,7 @@ a {
 	height: 300px;
 	background-color: #7b7b7b;
 	transition: .3s;
+	-webkit-transform: translate3d(0, 0, 0);
 	will-change: top, background-color;
 }
 

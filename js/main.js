@@ -1,14 +1,11 @@
 let popupEnable = false;
 let reverse = false;
 let keyPress = false;
-let volume = true;
 let clickCount = 0;
 let score = 0;
 let width = 350;
 let minAreaBetweenBlocks = 500;
 let bestScore = 0;
-let audioFly = new Audio('./audio/swish.mp3');
-let audioPunch = new Audio('./audio/punch.mp3');
 let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
 if (getCookie('flappyBestScore')) {
@@ -23,27 +20,12 @@ start.onclick = startClick;
 flyClickable.onclick = !detectMobile() ? clickFly : '';
 if (iOS) document.addEventListener('touchmove', preventDefault, { passive: false });
 
-volUp.onclick = setVolumeMute;
-volMute.onclick = setVolumeUp;
-
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', function() { keyPress = false });
 document.addEventListener('touchstart', function () { if (detectMobile()) clickFly()});
 
 isLandscape();
 window.onresize = isLandscape;
-
-function setVolumeMute() {
-	volume = false;
-	volUp.style.display = 'none';
-	volMute.style.display = 'block';
-}
-
-function setVolumeUp() {
-	volume = true;
-	volMute.style.display ='none';
-	volUp.style.display ='block';
-}
 
 function showPage() {
 	loader.style.display = "none";
@@ -127,12 +109,6 @@ function startClick(event) {
 function clickFly(event) {
 	if (popupEnable) return;
 
-	if (volume) {
-		audioFly.pause();
-		audioFly.currentTime = 0;
-		audioFly.play();
-	}
-
 	birdDown.style.display = 'none';
 	birdFly.style.display = 'block';
 	setTimeout(function() {
@@ -205,13 +181,7 @@ function clickFly(event) {
 }
 
 function vibrate() {
-	if (volume) {
-		audioPunch.pause();
-		audioPunch.currentTime = 0;
-		audioPunch.play();
-	}
-
-	if (window.navigator && window.navigator.vibrate) {
+	if (window.navigator && window.navigator.vibrate && !iOS) {
 		navigator.vibrate(50);
 	}
 }
