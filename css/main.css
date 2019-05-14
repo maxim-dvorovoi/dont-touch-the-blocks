@@ -87,6 +87,7 @@ a {
 	transition: .3s;
 	-webkit-transform: translate3d(0, 0, 0);
 	will-change: top, background-color;
+	touch-action: manipulation;
 }
 
 .triangles {
@@ -140,6 +141,7 @@ a {
 	font-size: 200px;
 	background-color: #fff;
 	will-change: color;
+	touch-action: manipulation;
 }
 
 .unselectable {
