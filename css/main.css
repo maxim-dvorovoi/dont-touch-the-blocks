@@ -1,5 +1,6 @@
 * {
     font-family: 'Open Sans', sans-serif;
+	touch-action: manipulation;
 }
 
 html {
