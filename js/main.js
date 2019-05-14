@@ -124,8 +124,8 @@ function clickFly(event) {
 	let maxFieldWidth = field.offsetWidth - bird.offsetWidth;
 	let maxFieldHeight = field.offsetHeight - bird.offsetHeight - spikesHeight;
 
-	let startTop = Number.parseInt(bird.style.top.substring(0,  bird.style.left.length - 2));
-	let startLeft = Number.parseInt(bird.style.left.substring(0,  bird.style.left.length - 2));
+	let startTop = bird.offsetTop;
+	let startLeft = bird.offsetLeft;
 	let height = field.clientHeight - bird.clientHeight;
 
 	animate({
@@ -158,6 +158,7 @@ function clickFly(event) {
 
 			if (left > maxFieldWidth || left < 0) {
 				reverse = !reverse;
+				bird.style.transform = 'scale(' + (reverse ? -1 : 1) + ', 1)';
 				left = left > maxFieldWidth ? maxFieldWidth : (left < 0 ? 0 : left);
 				startLeft = left + (left - startLeft);
 				++score;
@@ -167,8 +168,8 @@ function clickFly(event) {
 			let blocks = document.getElementsByClassName('block');
 			for (let i = 0; i < blocks.length; i++) {
 				if (
-					bird.offsetLeft + bird.offsetWidth > blocks[i].offsetLeft &&
-					bird.offsetLeft < blocks[i].offsetLeft + blocks[i].offsetWidth &&
+					bird.offsetLeft + bird.offsetWidth - 5 > blocks[i].offsetLeft &&
+					bird.offsetLeft + 5 < blocks[i].offsetLeft + blocks[i].offsetWidth &&
 					bird.offsetTop + bird.offsetHeight > blocks[i].offsetTop &&
 					bird.offsetTop < blocks[i].offsetTop + blocks[i].offsetHeight
 				) {
@@ -177,7 +178,6 @@ function clickFly(event) {
 				}
 			}
 
-			bird.style.transform = 'scale(' + (reverse ? -1 : 1) + ', 1)';
 			bird.style.left = left + "px";
 		}
 	});
