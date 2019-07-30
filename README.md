@@ -9,10 +9,9 @@ This Game was my final project. I have used object-oriented programming and func
 - [x] Many differents levels
 - [x] Random choosing size blocks
 - [x] Pretty colours of backgrounds
-- [x] Score table with best scores
+- [ ] Score table with best scores
 - [x] Keyboard space control
 - [x] Mobile optimization
-- [ ] Play again without reload page
 
 ## Technologies used
 - HTML
