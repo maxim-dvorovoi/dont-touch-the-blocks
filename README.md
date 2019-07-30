@@ -20,4 +20,4 @@ This Game was my final project. I have used object-oriented programming and func
 - JavaScript
 
 ## Game demo
-https://vmolo4nik.github.io/dont-touch-the-blocks/
+https://maxim-dvorovoi.github.io/dont-touch-the-blocks/
