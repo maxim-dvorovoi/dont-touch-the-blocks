@@ -25,8 +25,10 @@ a {
 }
 
 .alert-rotate {
-	position: absolute;
+	position: fixed;
 	background-color: #e23658d9;
+	left: 0;
+	top: 0;
 	width: 100vw;
 	height: 100vh;
 	color: whitesmoke;
@@ -224,10 +226,6 @@ a {
 	animation: jump-jump-3 1s cubic-bezier(0.21, 0.98, 0.6, 0.99) infinite alternate;
 }
 
-.mtop-40 {
-	margin-top: 40px;
-}
-
 @-webkit-keyframes jump-jump-1 {
 	0%, 70% {
 		box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
@@ -299,11 +297,5 @@ a {
 		box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.3);
 		-webkit-transform: scale(1);
 		transform: scale(1);
-	}
-}
-
-@media (max-device-width: 860px) {
-	.mtop-40 {
-		margin-top: 0;
 	}
 }

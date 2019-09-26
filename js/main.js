@@ -49,6 +49,8 @@ function isLandscape() {
 	if (orientation === 'landscape-primary'
 		|| orientation === 'landscape-secondary'
 		|| Math.abs(window.orientation) === 90
+		|| Math.abs(window.orientation) === 270
+		|| window.innerHeight === window.innerWidth
 	) {
 		rotate.style.display = 'none';
 	} else {
@@ -62,8 +64,10 @@ function scale() {
 	let scale = 1;
 	if (window.innerHeight < field.offsetHeight) {
 		scale = window.innerHeight / field.offsetHeight - 0.05;
-	} else if (window.innerWidth < field.offsetWidth) {
-		scale = window.innerWidth / field.offsetWidth - 0.05;
+	}
+	if (window.innerWidth < field.offsetWidth) {
+		let widthScale = window.innerWidth / field.offsetWidth - 0.05;
+		scale = widthScale < scale ? widthScale : scale
 	}
 
 	zoom.style.transform = 'scale(' + scale + ')';
